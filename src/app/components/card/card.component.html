@@ -1,0 +1,48 @@
+@if (showDeleteConfirm()) {
+  <app-confirm-dialog
+    title="Delete Card"
+    message="Make sure you want to delete this card?"
+    confirmLabel="Delete"
+    (confirmed)="confirmDelete()"
+    (cancelled)="showDeleteConfirm.set(false)"
+  />
+}
+<div class="card priority-{{ card().priority }}">
+  @if (card().image) {
+    <div class="card-image">
+      <img [src]="card().image" [alt]="card().title" loading="lazy" />
+    </div>
+  }
+
+  <div class="card-body">
+    <div class="card-top">
+      <span class="category-badge" [ngStyle]="getCategoryStyle(card().category)">
+        {{ card().category }}
+      </span>
+      <div class="card-top-right">
+        <button class="edit-btn" title="Edit card" (click)="onEdit($event)">
+          <app-icon name="edit" [size]="13" [sw]="2.5" />
+        </button>
+        <button class="delete-btn" title="Delete card" (click)="onDelete($event)">
+          <app-icon name="x" [size]="14" [sw]="2.5" />
+        </button>
+      </div>
+    </div>
+
+    <h4 class="card-title">{{ card().title }}</h4>
+
+    @if (card().description) {
+      <p
+        class="card-desc"
+        [class.expanded]="descExpanded()"
+        (click)="toggleDesc()"
+        [title]="descExpanded() ? 'Click to collapse' : 'Click to expand'"
+      >{{ card().description }}</p>
+    }
+
+    <div class="card-footer">
+      <span class="time-ago">{{ timeAgoText() }}</span>
+      <span class="priority-dot priority-{{ card().priority }}">{{ card().priority }}</span>
+    </div>
+  </div>
+</div>

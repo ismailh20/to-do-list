@@ -1,0 +1,66 @@
+@if (showDeleteConfirm()) {
+  <app-confirm-dialog
+    title="Delete Column"
+    [message]="'Are you sure you want to delete the \'' + column().title + '\' column? All cards inside will be lost.'"
+    confirmLabel="Delete"
+    (confirmed)="confirmDeleteColumn()"
+    (cancelled)="showDeleteConfirm.set(false)"
+  />
+}
+
+<div class="column">
+  <div class="column-header" cdkDragHandle>
+    <div class="col-title">
+      <span class="col-dot" [style.background]="column().color"></span>
+      @if (editingTitle()) {
+        <input
+          #titleInputEl
+          class="col-title-edit"
+          [value]="editValue()"
+          (input)="editValue.set($any($event.target).value)"
+          (keydown)="onTitleKeydown($event)"
+          (blur)="saveEdit()"
+          (click)="$event.stopPropagation()"
+        />
+      } @else {
+        <h3 class="col-title-text" (click)="startEdit($event)" title="Click to edit">{{ column().title }}</h3>
+      }
+      <span class="col-count">{{ column().cards.length }}</span>
+
+    </div>
+    <div class="col-menu-wrap">
+      <button class="col-more-btn" title="Column options" (click)="toggleMenu($event)">•••</button>
+      @if (showMenu()) {
+        <div class="col-dropdown" (click)="$event.stopPropagation()">
+          <button class="col-dropdown-item danger" (click)="deleteColumn($event)">
+            <app-icon name="trash" [size]="14" />
+            Delete column
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div
+    class="cards-list"
+    cdkDropList
+    [id]="'cards-' + column().id"
+    [cdkDropListData]="column().id"
+    [cdkDropListConnectedTo]="connectedCardListIds()"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+    @for (card of column().cards; track card.id) {
+      <div cdkDrag class="drag-item">
+        <app-card [card]="card" (deleted)="onCardDeleted($event)" (editRequested)="onCardEditRequested($event)" />
+      </div>
+    }
+
+    @if (column().cards.length === 0) {
+      <div class="empty-column">Drop cards here</div>
+    }
+  </div>
+
+  <button class="add-card-btn" (click)="addRequested.emit(column().id)">
+    <div class="plus-icon">+</div> Add new
+  </button>
+</div>

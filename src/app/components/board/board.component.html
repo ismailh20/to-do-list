@@ -1,0 +1,106 @@
+<div class="board-wrapper">
+  <!-- Header -->
+  <header class="board-header">
+    <div class="header-left">
+      <div class="board-logo">
+        <app-icon name="kanban" [size]="20" [sw]="2.5" />
+      </div>
+      <h2 class="board-title">My To Do List</h2>
+    </div>
+
+  </header>
+
+  <!-- Board scroll area -->
+  <div class="board-scroll-area">
+    @if (columns().length === 0 && !showAddColumnForm()) {
+      <div class="empty-board">
+        <div class="empty-board-icon">
+          <app-icon name="kanban" [size]="52" [sw]="1.5" style="color: #cbd5e1" />
+        </div>
+        <h3 class="empty-board-title">Board is empty</h3>
+        <p class="empty-board-desc">Add your first column to start organizing your tasks</p>
+        <button class="empty-board-btn" (click)="openAddColumnForm()">+ Add column</button>
+      </div>
+    } @else {
+    <div
+      class="board"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      [cdkDropListEnterPredicate]="rejectAll"
+      (cdkDropListDropped)="onColumnDrop($event)"
+    >
+      @for (col of columns(); track col.id) {
+        <app-column
+          cdkDrag
+          [column]="col"
+          [connectedCardListIds]="cardListIds()"
+          (cardDropped)="onDrop($event)"
+          (addRequested)="openModal($event)"
+          (cardDeleted)="onCardDeleted($event)"
+          (cardEditRequested)="onCardEditRequested($event)"
+          (columnDeleted)="onColumnDeleted($event)"
+          (columnRenamed)="onColumnRenamed($event)"
+        />
+      }
+
+      <!-- Add column -->
+      @if (!showAddColumnForm()) {
+        <div class="add-column-wrap">
+          <button class="add-column-btn" (click)="openAddColumnForm()">
+            <span class="add-icon">+</span> Add column
+          </button>
+        </div>
+      } @else {
+        <div class="add-column-form">
+          <div class="col-color-label">Column color</div>
+          <div class="col-color-swatches">
+            @for (color of colorOptions; track color) {
+              <button
+                class="color-swatch"
+                [style.background]="color"
+                [class.selected]="newColumnColor() === color"
+                (click)="newColumnColor.set(color)"
+                [title]="color"
+              ></button>
+            }
+          </div>
+          <input
+            type="text"
+            class="col-title-input"
+            [class.has-error]="newColumnTitleError()"
+            placeholder="Column title..."
+            [value]="newColumnTitle()"
+            (input)="updateColumnTitle($event)"
+            (keydown)="onColumnTitleKeydown($event)"
+            autofocus
+          />
+          @if (newColumnTitleError()) {
+            <p class="col-title-error">Title is required</p>
+          }
+          <div class="col-form-actions">
+            <button class="col-form-save" [style.background]="newColumnColor()" (click)="confirmAddColumn()">Add</button>
+            <button class="col-form-cancel" (click)="showAddColumnForm.set(false)">✕</button>
+          </div>
+        </div>
+      }
+    </div>
+    }
+  </div>
+</div>
+
+@if (showModal()) {
+  <app-add-card-modal
+    [columnId]="targetColumnId()"
+    (saved)="onCardSaved($event)"
+    (cancelled)="showModal.set(false)"
+  />
+}
+
+@if (editingCard()) {
+  <app-add-card-modal
+    [columnId]="editTargetColumnId()"
+    [editCard]="editingCard()"
+    (updated)="onCardUpdated($event)"
+    (cancelled)="editingCard.set(null)"
+  />
+}

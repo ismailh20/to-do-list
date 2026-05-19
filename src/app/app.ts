@@ -1,12 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { BoardComponent } from './components/board/board.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  imports: [BoardComponent],
+  template: '<app-board />',
+  styles: [':host { display: block; height: 100vh; }']
 })
-export class App {
-  protected readonly title = signal('to-do-list');
-}
+export class App {}
