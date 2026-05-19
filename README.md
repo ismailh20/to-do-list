@@ -1,6 +1,10 @@
+
+
+
+
 # My To Do List
 
-A Kanban-style task board built with **Angular 20** — drag-and-drop cards and columns, inline editing, persistent storage, and a clean modern UI.
+A Kanban-style task board built with **Angular 20** â€” drag-and-drop cards and columns, inline editing, persistent storage, and a clean modern UI.
 
 ---
 
@@ -12,7 +16,7 @@ A Kanban-style task board built with **Angular 20** — drag-and-drop cards and co
 >
 > _Replace this block with your video. Example for YouTube:_
 > ```
-> [![Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+> [![Demo][(https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)](https://github.com/user-attachments/assets/12cd3f17-855f-4194-aeaa-9c682e136c16)
 > ```
 > _Or drag & drop a GIF/screenshot directly into this README on GitHub._
 
@@ -20,18 +24,18 @@ A Kanban-style task board built with **Angular 20** — drag-and-drop cards and co
 
 ## Features
 
-- **Kanban board** — multiple columns, each with cards organized by status
-- **Drag & drop** — reorder cards within and between columns; reorder columns by dragging the header
-- **Add card** — modal form with title, description, category, priority, and optional cover image
-- **Edit card** — click the pencil icon on any card to edit its details
-- **Delete card / column** — confirmation popup before any destructive action
-- **Inline column title editing** — click a column title to rename it
-- **Add / delete columns** — with a custom color picker
-- **Priority indicator** — color-coded left border per card (red = high, amber = medium, green = low)
-- **Description expand/collapse** — truncated to 2 lines, click to expand
-- **Dynamic timestamps** — "Just now", "2h ago", "3 days ago", etc., computed from creation time
-- **Persistent storage** — board state saved to `localStorage`, survives page refresh
-- **Empty state** — helpful prompt when all columns are removed
+- **Kanban board** â€” multiple columns, each with cards organized by status
+- **Drag & drop** â€” reorder cards within and between columns; reorder columns by dragging the header
+- **Add card** â€” modal form with title, description, category, priority, and optional cover image
+- **Edit card** â€” click the pencil icon on any card to edit its details
+- **Delete card / column** â€” confirmation popup before any destructive action
+- **Inline column title editing** â€” click a column title to rename it
+- **Add / delete columns** â€” with a custom color picker
+- **Priority indicator** â€” color-coded left border per card (red = high, amber = medium, green = low)
+- **Description expand/collapse** â€” truncated to 2 lines, click to expand
+- **Dynamic timestamps** â€” "Just now", "2h ago", "3 days ago", etc., computed from creation time
+- **Persistent storage** â€” board state saved to `localStorage`, survives page refresh
+- **Empty state** â€” helpful prompt when all columns are removed
 
 ---
 
@@ -82,14 +86,14 @@ Output is placed in `dist/`.
 src/
 +-- app/
     +-- components/
-    ¦   +-- board/          # Main board layout & column orchestration
-    ¦   +-- column/         # Single Kanban column
-    ¦   +-- card/           # Single task card
-    ¦   +-- add-card-modal/ # Add / edit card modal
-    ¦   +-- confirm-dialog/ # Reusable delete confirmation popup
+    Â¦   +-- board/          # Main board layout & column orchestration
+    Â¦   +-- column/         # Single Kanban column
+    Â¦   +-- card/           # Single task card
+    Â¦   +-- add-card-modal/ # Add / edit card modal
+    Â¦   +-- confirm-dialog/ # Reusable delete confirmation popup
     +-- models/
-    ¦   +-- task.model.ts   # TaskCard, Priority types
-    ¦   +-- board.model.ts  # BoardColumn type
+    Â¦   +-- task.model.ts   # TaskCard, Priority types
+    Â¦   +-- board.model.ts  # BoardColumn type
     +-- services/
         +-- board.service.ts  # Signal-based state + localStorage persistence
 ```
