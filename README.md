@@ -6,7 +6,7 @@ A Kanban-style task board built with **Angular 20** — drag-and-drop cards and 
 
 ## Demo
 
-![Demo](https://github.com/user-attachments/assets/12cd3f17-855f-4194-aeaa-9c682e136c16)
+https://github.com/user-attachments/assets/12cd3f17-855f-4194-aeaa-9c682e136c16
 
 ---
 
@@ -115,7 +115,8 @@ This project uses Angular Signals for reactive state management:
 - `computed`
 - `effect`
 
-Benefits:
+### Benefits
+
 - Fine-grained reactivity
 - Better performance
 - Cleaner state updates
